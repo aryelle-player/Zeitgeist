@@ -1,0 +1,6 @@
+class apsmTrends : public Trends {
+   
+
+
+  };
+
