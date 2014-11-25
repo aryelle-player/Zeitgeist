@@ -11,7 +11,7 @@ public:
 
 protected:
 	std::array<std::pair<unsigned int, std::string>, 10> topTen;
-	std::unordered_map<std::pair<std::string, unsigned int>> wordTable;
+	std::unordered_map<std::string, unsigned int> wordTable;
 
     
 private:
