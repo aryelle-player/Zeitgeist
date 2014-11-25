@@ -18,23 +18,13 @@ void apsmTrends::swap(std::pair<std::string, unsigned int>, int){
 void apsmTrends::increaseCount(std::string s, unsigned amount){
 	if (wordTable.count(s) > 0) {
 		wordTable.find(s)->second += amount;
-		//need to update topTen
+		//compare s.second(the amount of times it has been used) to the top10 array
+		//if s.second is used more than an element of the top10, swap s and that element.
 	}
 	
 	if (wordTable.count(s) == 0){
 		wordTable.emplace(s, amount);
 	}
-	
-	
-	/**
-	//Pseudocode
-	hashfunction(s)
-		increase the hash by amount or add s to the hash table
-
-		compare s.second(the amount of times it has been used) to the top10 array
-		if s.second is used more than an element of the top10, swap s and that element.
-		*/
-
 }
 
 /*
@@ -60,7 +50,9 @@ std::string apsmTrends::getNthPopular(unsigned int n){
 * Return the count for the given string. 0 if not present, of course.
 */
 unsigned int apsmTrends::getCount(std::string s){
-
+	if (wordTable.count(s) == 0) { return 0; }
+	
+	return wordTable.find(s)->second;
 }
 
 
@@ -71,5 +63,5 @@ unsigned int apsmTrends::getCount(std::string s){
 * using getNthPopular. If you do getNthPopular(numEntries()-1), it should get the least popular item
 */
 unsigned int apsmTrends::numEntries(){
-
+	return 0;
 }
