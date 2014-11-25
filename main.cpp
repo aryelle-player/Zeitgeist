@@ -11,8 +11,18 @@
 #include <vector>
 #include <time.h>
 
-#include "smarterTrends.h" //You will need to change this to match your own class
+//Comment out one of the following lines to determine which trends class you use
+#include "smarterTrends.cpp"
+//#include "apsmTrends.h"
+
 #include "utilities.h"
+
+//A helper method to reduce unnecessary repitition
+/**
+private double addAllWordsToList() {
+    return 0.0;
+}
+*/
 
 /**
  * This tests a simple (but unlikely) use case, which is to read in all the data, and then print out the data in sorted order
@@ -21,7 +31,9 @@
  * Compare your 28885.txt.out to 28885_txt.out, using diff,s to see if your code is producing correct output.
  */
 double useCase_addAllThenGetInOrder(){
-	Trends* tr = new smarterTrends(); //You will need to change this to match your own class!
+	//Comment out one of the following lines to determine which trends class you use
+    Trends* tr = new smarterTrends();
+    //Trends* tr = new apsmTrends();
 
 	std::vector<std::string> wordlist = getWordList("data/28885.txt");
 
@@ -36,7 +48,7 @@ double useCase_addAllThenGetInOrder(){
 	double end = getTimeInMillis();
 	std::cout << "increaseCount time: " << (end-start)/wordlist.size() << " ms per word" << std::endl;
 
-	//Now we will print out the complete results. This could be REALLY clow, if
+	//Now we will print out the complete results. This could be REALLY slow, if
 	// your getNthPopular is not a little bit smart.
 	std::string outfname = "data/28885.txt.out";
 	std::ofstream out(outfname.c_str());
@@ -55,17 +67,30 @@ double useCase_addAllThenGetInOrder(){
 	return end - start;
 }
 
+/**
+ * This use case is used to show that the smarterTrends class is not efficient in finding
+ * the top 10 most used words, which typically users care more about than finding the 
+ * usage of EVERY word.
+ */
+double useCase_addAllThenGetTopTen() {
+    //Comment out one of the following lines to determine which trends class you use
+    Trends* tr = new smarterTrends();
+    //Trends* tr = new apsmTrends();
+    
+    delete tr;
+}
+
 /*
  * The only purpose of main() is to call processFile with increasingingly larger and larger
  * files. A larger file will give a more accurate sense of how fast addToTrends is, but at some
  * point it may take so long to do the getNthPopular, that we aren't willing to wait for it to finish.
  */
 int main(){
-    // This is a test comment
 	/* The data files are books from project Gutenberg. I have provided the inputs, as well as my outputs
 	 * in the starter files */
 	
 	useCase_addAllThenGetInOrder();
+    useCase_addAllThenGetTopTen();
 
 	return 0;
 }
