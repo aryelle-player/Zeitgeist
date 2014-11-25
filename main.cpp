@@ -10,19 +10,11 @@
 #include <fstream>
 #include <vector>
 #include <time.h>
-
-//Comment out one of the following lines to determine which trends class you use
-#include "smarterTrends.cpp"
-//#include "apsmTrends.h"
-
 #include "utilities.h"
 
-//A helper method to reduce unnecessary repitition
-/**
-private double addAllWordsToList() {
-    return 0.0;
-}
-*/
+//Comment out one of the following lines to determine which trends class you use
+#include "smarterTrends.h"
+//#include "apsmTrends.h"
 
 /**
  * This tests a simple (but unlikely) use case, which is to read in all the data, and then print out the data in sorted order
@@ -92,6 +84,7 @@ double useCase_addAllThenGetTopTen() {
 	}
 
 	double end = getTimeInMillis();
+	std::cout << "get top 10 after adding all words: " << (end - start) << std::endl;
     delete tr;
 
 	return end - start;
