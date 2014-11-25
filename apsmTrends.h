@@ -10,9 +10,9 @@ public:
 	virtual unsigned int numEntries();
 
 protected:
-	std::array<std::pair<std::string, unsigned int>, 10> topTen;
+	std::array<std::pair<unsigned int, std::string>, 10> topTen;
 	std::unordered_map<std::pair<std::string, unsigned int>> wordTable;
-  };
+
     
 private:
     virtual void swap(std::pair<std::string, unsigned int>, int);
