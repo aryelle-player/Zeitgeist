@@ -77,7 +77,24 @@ double useCase_addAllThenGetTopTen() {
     Trends* tr = new smarterTrends();
     //Trends* tr = new apsmTrends();
     
+	std::vector<std::string> wordlist = getWordList("data/28885.txt");
+
+	double start = getTimeInMillis();
+	//Now add all the words to the Trends data structure
+	for(unsigned int i=0; i<wordlist.size(); i++){
+		tr->increaseCount(wordlist[i],1);
+	}
+
+	//Go through and print the top 10 most commonly used words in reverse order
+	for(unsigned int i=9; i >= 0; i--){
+		std::string s = tr->getNthPopular(i);
+		std::cout << "Word #" << i << ": " << tr->getCount(s) << ": " << s << std::endl;
+	}
+
+	double end = getTimeInMillis();
     delete tr;
+
+	return end - start;
 }
 
 /*
