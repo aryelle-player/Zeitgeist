@@ -78,7 +78,7 @@ double useCase_addAllThenGetTopTen() {
 	}
 
 	//Go through and print the top 10 most commonly used words in reverse order
-	for(unsigned int i=9; i >= 0; i--){
+	for(int i=9; i >= 0; i--){
 		std::string s = tr->getNthPopular(i);
 		std::cout << "Word #" << i << ": " << tr->getCount(s) << ": " << s << std::endl;
 	}
