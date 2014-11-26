@@ -35,9 +35,7 @@ void apsmTrends::increaseCount(std::string s, unsigned amount){
         if(wordTable.find(s)->second > topTen[9]->second) {
             swap(std::pair<std::string, unsigned int>(s, wordTable.find(s)->second), 9);
         }
-		//compare s.second(the amount of times it has been used) to the top10 array
-		//if s.second is used more than an element of the top10, swap s and that element.
-	}
+    }
 	
 	if (wordTable.count(s) == 0){
 		wordTable.emplace(s, amount);
@@ -58,8 +56,8 @@ std::string apsmTrends::getNthPopular(unsigned int n){
 	}
 
 	if (n > 10){
-		//search hashtable for hash n
-		//return the associated string
+		//do what smarterTrends does (can we call it here?) which is put them all
+        //in an array, sort it, and then just use array[n]
 	}
 
 	return "";
