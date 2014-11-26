@@ -2,6 +2,9 @@
 #include <unordered_map>
 #include <array>
 
+apsmTrends::apsmTrends() {
+    numWords = 0;
+}
 
 //it looks like the unordered_map class already has a swap method
 void apsmTrends::swap(std::pair<std::string, unsigned int> p, int index){
@@ -39,6 +42,7 @@ void apsmTrends::increaseCount(std::string s, unsigned amount){
 	
 	if (wordTable.count(s) == 0){
 		wordTable.emplace(s, amount);
+        numWords++;
         if(numEntries()<10) {
             topTen[numEntries()] = std::pair<std::string, unsigned int>(s, wordTable.find(s)->second);
         }
@@ -81,5 +85,5 @@ unsigned int apsmTrends::getCount(std::string s){
 * using getNthPopular. If you do getNthPopular(numEntries()-1), it should get the least popular item
 */
 unsigned int apsmTrends::numEntries(){
-	return 0;
+	return numWords;
 }

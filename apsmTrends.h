@@ -8,6 +8,7 @@ public:
 	virtual unsigned int getCount(std::string s);
 	virtual std::string getNthPopular(unsigned int n);
 	virtual unsigned int numEntries();
+    apsmTrends();
 
 protected:
 	std::array<std::pair<unsigned int, std::string>, 10> topTen;
@@ -16,5 +17,6 @@ protected:
     
 private:
     virtual void swap(std::pair<std::string, unsigned int>, int);
+    unsigned int numWords;
 };
 
