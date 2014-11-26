@@ -13,8 +13,8 @@
 #include "utilities.h"
 
 //Comment out one of the following lines to determine which trends class you use
-#include "smarterTrends.h"
-//#include "apsmTrends.h"
+//#include "smarterTrends.h"
+#include "apsmTrends.h"
 
 /**
  * This tests a simple (but unlikely) use case, which is to read in all the data, and then print out the data in sorted order
@@ -24,8 +24,8 @@
  */
 double useCase_addAllThenGetInOrder(){
 	//Comment out one of the following lines to determine which trends class you use
-    Trends* tr = new smarterTrends();
-    //Trends* tr = new apsmTrends();
+    //Trends* tr = new smarterTrends();
+    Trends* tr = new apsmTrends();
 
 	std::vector<std::string> wordlist = getWordList("data/28885.txt");
 
@@ -66,8 +66,8 @@ double useCase_addAllThenGetInOrder(){
  */
 double useCase_addAllThenGetTopTen() {
     //Comment out one of the following lines to determine which trends class you use
-    Trends* tr = new smarterTrends();
-    //Trends* tr = new apsmTrends();
+    //Trends* tr = new smarterTrends();
+    Trends* tr = new apsmTrends();
     
 	std::vector<std::string> wordlist = getWordList("data/28885.txt");
 
@@ -77,13 +77,16 @@ double useCase_addAllThenGetTopTen() {
 		tr->increaseCount(wordlist[i],1);
 	}
 
+	//Now get the end time
+	double end = getTimeInMillis();
+	std::cout << "getNthPopular time: " << (end - start) / wordlist.size() << " ms per word" << std::endl;
+
 	//Go through and print the top 10 most commonly used words in reverse order
 	for(int i=9; i >= 0; i--){
 		std::string s = tr->getNthPopular(i);
 		std::cout << "Word #" << i << ": " << tr->getCount(s) << ": " << s << std::endl;
 	}
-
-	double end = getTimeInMillis();
+	
 	std::cout << "get top 10 after adding all words: " << (end - start) << std::endl;
     delete tr;
 
@@ -100,7 +103,7 @@ int main(){
 	 * in the starter files */
 	
 	useCase_addAllThenGetInOrder();
-    useCase_addAllThenGetTopTen();
+    //useCase_addAllThenGetTopTen();
 
 	return 0;
 }
