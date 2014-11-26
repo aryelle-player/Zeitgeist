@@ -4,26 +4,46 @@
 
 
 //it looks like the unordered_map class already has a swap method
-void apsmTrends::swap(std::pair<std::string, unsigned int>, int){
-
+void apsmTrends::swap(std::pair<std::string, unsigned int> p, int index){
+    if(index == 9) {
+        topTen.swap(p, topTen[index]);
+        if(topTen[index].second > topTen[index-1].second) {
+            swap(topTen[index], index-1);
+        }
+    }
+    if(index > 0) {
+        topTen.swap(topTen[index+1], topTen[index]);
+        if(topTen[index].second > topTen[index-1].second) {
+            swap(topTen[index], index-1);
+        }
+    }
+    else {
+        topTen.swap(topTen[index+1], topTen[index]);
+    }
 }
 
 
 /*
 * If the string "s" has not been added to the data structure yet, add it, and set its count to "amount"
 * If the string "s" already has an entry in your data structure, just increase the count by "amount"
-*
 * Usually, "amount" will be equal to 1. See main.cpp for an example of how it is used.
 */
 void apsmTrends::increaseCount(std::string s, unsigned amount){
 	if (wordTable.count(s) > 0) {
 		wordTable.find(s)->second += amount;
+        
+        if(wordTable.find(s)->second > topTen[9]->second) {
+            swap(std::pair<std::string, unsigned int>(s, wordTable.find(s)->second), 9);
+        }
 		//compare s.second(the amount of times it has been used) to the top10 array
 		//if s.second is used more than an element of the top10, swap s and that element.
 	}
 	
 	if (wordTable.count(s) == 0){
 		wordTable.emplace(s, amount);
+        if(numEntries()<10) {
+            topTen[numEntries()] = std::pair<std::string, unsigned int>(s, wordTable.find(s)->second);
+        }
 	}
 }
 
