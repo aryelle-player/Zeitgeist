@@ -6,22 +6,21 @@ apsmTrends::apsmTrends() {
     numWords = 0;
 }
 
-//it looks like the unordered_map class already has a swap method
 void apsmTrends::swap(std::pair<std::string, unsigned int> p, int index){
     if(index == 9) {
-        topTen.swap(p, topTen[index]);
+        (topTen.at(index)).swap(p);
         if(topTen[index].second > topTen[index-1].second) {
             swap(topTen[index], index-1);
         }
     }
     if(index > 0) {
-        topTen.swap(topTen[index+1], topTen[index]);
+        (topTen.at(index)).swap(topTen[index+1]);
         if(topTen[index].second > topTen[index-1].second) {
             swap(topTen[index], index-1);
         }
     }
     else {
-        topTen.swap(topTen[index+1], topTen[index]);
+        (topTen.at(index)).swap(topTen[index+1]);
     }
 }
 
@@ -35,7 +34,7 @@ void apsmTrends::increaseCount(std::string s, unsigned amount){
 	if (wordTable.count(s) > 0) {
 		wordTable.find(s)->second += amount;
         
-        if(wordTable.find(s)->second > topTen[9]->second) {
+        if(wordTable.find(s)->first > topTen[9].first) {
             swap(std::pair<std::string, unsigned int>(s, wordTable.find(s)->second), 9);
         }
     }
@@ -56,7 +55,7 @@ void apsmTrends::increaseCount(std::string s, unsigned amount){
 */
 std::string apsmTrends::getNthPopular(unsigned int n){
 	if (n <= 10 && n > 0){
-		return topTen[n - 1].second;
+		return (topTen.at(n - 1)).first;
 	}
 
 	if (n > 10){
