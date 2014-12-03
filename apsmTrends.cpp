@@ -1,27 +1,28 @@
 #include "apsmTrends.h"
+#include "smarterTrends.h"
 #include <unordered_map>
 #include <array>
 
 apsmTrends::apsmTrends() {
-    numWords = 0;
+	numWords = 0;
 }
 
 void apsmTrends::swap(std::pair<std::string, unsigned int> p, int index){
-    if(index == 9) {
-        (topTen.at(index)).swap(p);
-        if(topTen[index].second > topTen[index-1].second) {
-            swap(topTen[index], index-1);
-        }
-    }
-    if(index > 0) {
-        (topTen.at(index)).swap(topTen[index+1]);
-        if(topTen[index].second > topTen[index-1].second) {
-            swap(topTen[index], index-1);
-        }
-    }
-    else {
-        (topTen.at(index)).swap(topTen[index+1]);
-    }
+	if(index == 9) {
+		(topTen.at(index)).swap(p);
+		if(topTen[index].second > topTen[index-1].second) {
+			swap(topTen[index], index-1);
+		}
+	}
+	if(index > 0) {
+		(topTen.at(index)).swap(topTen[index+1]);
+		if(topTen[index].second > topTen[index-1].second) {
+			swap(topTen[index], index-1);
+		}
+	}
+	else {
+		(topTen.at(index)).swap(topTen[index+1]);
+	}
 }
 
 
@@ -33,18 +34,18 @@ void apsmTrends::swap(std::pair<std::string, unsigned int> p, int index){
 void apsmTrends::increaseCount(std::string s, unsigned amount){
 	if (wordTable.count(s) > 0) {
 		wordTable.find(s)->second += amount;
-        
-        if(wordTable.find(s)->first > topTen[9].first) {
-            swap(std::pair<std::string, unsigned int>(s, wordTable.find(s)->second), 9);
-        }
-    }
-	
+
+		if(wordTable.find(s)->first > topTen[9].first) {
+			swap(std::pair<std::string, unsigned int>(s, wordTable.find(s)->second), 9);
+		}
+	}
+
 	if (wordTable.count(s) == 0){
 		wordTable.emplace(s, amount);
-        numWords++;
-        if(numEntries()<10) {
-            topTen[numEntries()] = std::pair<std::string, unsigned int>(s, wordTable.find(s)->second);
-        }
+		numWords++;
+		if(numEntries()<10) {
+			topTen[numEntries()] = std::pair<std::string, unsigned int>(s, wordTable.find(s)->second);
+		}
 	}
 }
 
@@ -60,7 +61,7 @@ std::string apsmTrends::getNthPopular(unsigned int n){
 
 	if (n > 10){
 		//do what smarterTrends does (can we call it here?) which is put them all
-        //in an array, sort it, and then just use array[n]
+		//in an array, sort it, and then just use array[n]
 	}
 
 	return "";
@@ -72,7 +73,7 @@ std::string apsmTrends::getNthPopular(unsigned int n){
 */
 unsigned int apsmTrends::getCount(std::string s){
 	if (wordTable.count(s) == 0) { return 0; }
-	
+
 	return wordTable.find(s)->second;
 }
 
