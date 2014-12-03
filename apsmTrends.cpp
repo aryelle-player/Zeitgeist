@@ -30,11 +30,11 @@ void apsmTrends::swap(std::pair<std::string, unsigned int> p, int index){
 * If the string "s" already has an entry in your data structure, just increase the count by "amount"
 * Usually, "amount" will be equal to 1. See main.cpp for an example of how it is used.
 */
-void apsmTrends::increaseCount(std::string s, unsigned amount){
+void apsmTrends::increaseCount(std::string s, unsigned int amount){
 	if (wordTable.count(s) > 0) {
 		wordTable.find(s)->second += amount;
         
-        if(wordTable.find(s)->first > topTen[9].first) {
+        if(wordTable.find(s)->second > topTen[9].second) {
             swap(std::pair<std::string, unsigned int>(s, wordTable.find(s)->second), 9);
         }
     }
