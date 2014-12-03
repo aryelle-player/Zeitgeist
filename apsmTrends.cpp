@@ -61,6 +61,33 @@ std::string apsmTrends::getNthPopular(unsigned int n){
 	if (n > 10){
 		//do what smarterTrends does (can we call it here?) which is put them all
         //in an array, sort it, and then just use array[n]
+		int* wordUsage;
+		int wordUsageSize = 0;
+
+		for(auto it = wordTable.begin(); it != wordTable.end(); it++) {
+			wordUsage += it->second;
+			wordUsageSize++;
+		}
+		
+		//Order wordUsage
+		for(int i=0; i < wordUsageSize; i++) {
+			for(int j=i; j < wordUsageSize; j++) {
+				if(wordUsage[j] < wordUsage[i]) {
+					int temp = wordUsage[j];
+					wordUsage[j] = wordUsage[i];
+					wordUsage[i] = temp;
+				}
+			}
+		}
+
+		//Go through, like the first for loop, but compare the nth
+		//of wordUsage with the current pair's int, if equal, 
+		//return the current pair's string
+		for(auto it = wordTable.begin(); it != wordTable.end(); it++) {
+			if(wordUsage[n] == it->second) {
+				return it->first;
+			}
+		}
 	}
 
 	return "";
