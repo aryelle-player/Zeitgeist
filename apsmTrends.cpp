@@ -13,7 +13,7 @@ void apsmTrends::swap(std::pair<std::string, unsigned int> p, int index){
             swap(topTen[index], index-1);
         }
     }
-    if(index > 0) {
+    else if(index > 0) {
         (topTen.at(index)).swap(topTen[index+1]);
         if(topTen[index].second > topTen[index-1].second) {
             swap(topTen[index], index-1);
@@ -61,7 +61,8 @@ std::string apsmTrends::getNthPopular(unsigned int n){
 	if (n > 10){
 		//do what smarterTrends does (can we call it here?) which is put them all
         //in an array, sort it, and then just use array[n]
-		int* wordUsage;
+		int* wordUsage = new int[50];
+		//MAKE GROW METHOD	
 		int wordUsageSize = 0;
 
 		for(auto it = wordTable.begin(); it != wordTable.end(); it++) {
