@@ -6,6 +6,18 @@ apsmTrends::apsmTrends() {
     numWords = 0;
 }
 
+int* apsmTrends::grow(int* startIndex) {
+	int arraySize = numEntries() * 2;
+	int* tempArray = startIndex;
+	startIndex = new int[arraySize];
+
+	for(unsigned int i=0; i < numEntries(); i++) {
+		startIndex[i] = tempArray[i];
+	}
+
+	return startIndex;
+}
+
 void apsmTrends::swap(std::pair<std::string, unsigned int> p, int index){
     if(index == 9) {
         (topTen.at(index)).swap(p);
@@ -59,20 +71,26 @@ std::string apsmTrends::getNthPopular(unsigned int n){
 	}
 
 	if (n > 10){
-		//do what smarterTrends does (can we call it here?) which is put them all
+		//do what smarterTrends does which is put them all
         //in an array, sort it, and then just use array[n]
 		int* wordUsage = new int[50];
 		//MAKE GROW METHOD	
-		int wordUsageSize = 0;
+		unsigned int wordUsageSize = 0;
 
 		for(auto it = wordTable.begin(); it != wordTable.end(); it++) {
-			wordUsage += it->second;
+			if(wordUsageSize >= numEntries()) {
+				wordUsage = grow(wordUsage);
+			}
+			//One of these should work?
+			wordUsage[wordUsageSize] = it->second;
+			//wordUsage += it->second;
+
 			wordUsageSize++;
 		}
 		
 		//Order wordUsage
-		for(int i=0; i < wordUsageSize; i++) {
-			for(int j=i; j < wordUsageSize; j++) {
+		for(unsigned int i=0; i < wordUsageSize; i++) {
+			for(unsigned int j=i; j < wordUsageSize; j++) {
 				if(wordUsage[j] < wordUsage[i]) {
 					int temp = wordUsage[j];
 					wordUsage[j] = wordUsage[i];
@@ -85,6 +103,11 @@ std::string apsmTrends::getNthPopular(unsigned int n){
 		//of wordUsage with the current pair's int, if equal, 
 		//return the current pair's string
 		for(auto it = wordTable.begin(); it != wordTable.end(); it++) {
+			/*if(wordTable.find(it) == wordTable.end()) { 
+				return "ERROR: The word was not found."; 
+			}
+			else 
+			*/
 			if(wordUsage[n] == it->second) {
 				return it->first;
 			}

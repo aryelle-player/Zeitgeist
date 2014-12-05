@@ -18,5 +18,6 @@ protected:
 private:
     virtual void swap(std::pair<std::string, unsigned int>, int);
     unsigned int numWords;
+	virtual int* grow(int*);
 };
 
